@@ -43,4 +43,15 @@ describe("Gilded Rose", function() {
     })
   })
 
+  describe("Aged Brie", function() {
+
+    beforeEach(function() {
+      items = [new Item("Aged Brie", 5, 5)]
+    })
+    it("quality increases with time", function() {
+      update_quality(items)
+      expect(items[0].quality).toEqual(6)
+    })
+  })
+
 });

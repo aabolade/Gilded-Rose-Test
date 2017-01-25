@@ -5,8 +5,10 @@ function Item(name, sell_in, quality) {
   this.quality = quality;
 }
 
-const depreciationConstant = 1;
-const afterSellInDateDepreciationConstant = 2;
+const depreciationConstant = -1;
+const afterSellInDateDepreciationConstant = -2;
+const backstageConstant = 1;
+
 
 
 var items = []
@@ -19,7 +21,7 @@ function update_quality(items) {
 }
 
 function depreciateQuality(item, factor) {
-  item.quality -= factor;
+  item.quality += factor;
 }
 
 function checkForSellInDate(element) {
@@ -30,8 +32,20 @@ function checkForSellInDate(element) {
   }
 }
 
-function checkIfQualityIsZero(element) {
-  if(element.quality !== 0) {
-    checkForSellInDate(element)
+function checkIfQualityIsZero(item) {
+  if(item.quality !== 0) {
+    checkForAgedBrie(item)
   }
+}
+
+function checkForAgedBrie(item) {
+  if(item.name === "Aged Brie") {
+    adjustBackStageItem(item)
+  } else {
+    checkForSellInDate(item)
+  }
+}
+
+function adjustBackStageItem(item) {
+  depreciateQuality(item, backstageConstant)
 }
