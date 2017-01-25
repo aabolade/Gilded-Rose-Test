@@ -1,9 +1,19 @@
 describe("Gilded Rose", function() {
 
-  it("should foo", function() {
-    items = [ new Item("foo", 0, 0) ];
-    update_quality();
-    expect(items[0].name).toEqual("fixme");
-  });
+  var items;
+
+  beforeEach(function() {
+    items = [new Item("item1", 10, 10), new Item("item2", 5, 3)]
+  })
+
+  describe("quality and sellin value", function() {
+    it("decreases after each day", function() {
+      update_quality(items)
+      expect(items[0].sell_in).toEqual(9)
+      expect(items[0].quality).toEqual(9)
+      expect(items[1].sell_in).toEqual(4)
+      expect(items[1].quality).toEqual(2)
+    })
+  })
 
 });
