@@ -53,11 +53,24 @@ describe("Gilded Rose", function() {
   describe("Aged Brie", function() {
 
     beforeEach(function() {
-      items = [new Item("Aged Brie", 5, 5)]
+      items = [new Item("Aged Brie", 12, 5), new Item("Aged Brie", 9, 5), new Item("Aged Brie", 3,5), new Item("Aged Brie", 0, 10)]
+      update_quality(items)
     })
     it("quality increases with time", function() {
-      update_quality(items)
       expect(items[0].quality).toEqual(6)
+    })
+
+    it("quality increases by 2 when there are ten days or less left", function() {
+      expect(items[1].quality).toEqual(7)
+    })
+
+    it("quality increases by 3 when there are five days or less left", function() {
+      expect(items[2].quality).toEqual(8)
+    })
+
+    it("quality decreases to zero after the concert", function() {
+      console.log(items[3].sell_in)
+      expect(items[3].quality).toEqual(0)
     })
   })
 

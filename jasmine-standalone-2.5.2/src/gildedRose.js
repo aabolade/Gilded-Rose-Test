@@ -7,18 +7,19 @@ function Item(name, sell_in, quality) {
 
 const depreciationConstant = -1;
 const afterSellInDateDepreciationConstant = -2;
-const backstageConstant = 1;
+const appreciationConstant = 1;
 
 function update_quality(items) {
 
   items.forEach(function(element) {
-    element.sell_in -= 1;
-    checkIfQualityIsWithBounds(element);
+    checkForAgedBrie(element);
   })
 }
 
 function depreciateQuality(item, factor) {
   item.quality += factor;
+  checkIfQualityIsWithBounds(item);
+  item.sell_in -= 1;
 }
 
 function checkForSellInDate(element) {
@@ -29,8 +30,12 @@ function checkForSellInDate(element) {
 }
 
 function checkIfQualityIsWithBounds(item) {
-  if(item.quality > 0 && item.quality < 50 ) {
-    checkForAgedBrie(item);
+  if(item.quality < 0) {
+    item.quality = 0;
+  }
+
+  if (item.quality > 50) {
+    item.quality = 50;
   }
 }
 
@@ -40,5 +45,21 @@ function checkForAgedBrie(item) {
 
 
 function adjustBackStageItem(item) {
-  depreciateQuality(item, backstageConstant)
+  if (item.sell_in === 0) {
+    item.quality = 0;
+  } else {
+    depreciateQuality(item, appreciationConstant * backstageConstant(item))
+
+  }
+}
+
+function backstageConstant(item) {
+
+  if (item.sell_in <= 5) {
+    return 3
+  } else if (item.sell_in <= 10) {
+    return 2
+  } else {
+    return 1
+  }
 }
