@@ -3,10 +3,8 @@ describe("Gilded Rose", function() {
   var items;
 
   beforeEach(function() {
-    items = [new Item("item1", 10, 10), new Item("item2", 5, 3)]
+    items = [new Item("item1", 10, 10), new Item("item2", 5, 3), new Item("Aged Brie", 10, 10)]
   })
-
-
 
   describe("quality value", function() {
     it("decreases after each day", function() {
@@ -21,6 +19,15 @@ describe("Gilded Rose", function() {
       }
 
       expect(items[1].quality).not.toBeLessThan(0)
+    })
+
+    it("never exceeds 50", function() {
+
+      for(count = 0; count<50; count++) {
+        update_quality(items)
+      }
+
+      expect(items[2].quality).not.toBeGreaterThan(50)
     })
   })
 

@@ -14,9 +14,10 @@ const backstageConstant = 1;
 var items = []
 
 function update_quality(items) {
+
   items.forEach(function(element) {
     element.sell_in -= 1;
-    checkIfQualityIsZero(element);
+    checkIfQualityIsWithBounds(element);
   })
 }
 
@@ -25,25 +26,17 @@ function depreciateQuality(item, factor) {
 }
 
 function checkForSellInDate(element) {
-  if (element.sell_in <= 0) {
-    depreciateQuality(element, afterSellInDateDepreciationConstant )
-  } else {
-    depreciateQuality(element, depreciationConstant);
-  }
+  (element.sell_in <= 0) ? depreciateQuality(element, afterSellInDateDepreciationConstant ) : depreciateQuality(element, depreciationConstant);
 }
 
-function checkIfQualityIsZero(item) {
-  if(item.quality !== 0) {
-    checkForAgedBrie(item)
+function checkIfQualityIsWithBounds(item) {
+  if(item.quality > 0 && item.quality < 50 ) {
+    checkForAgedBrie(item);
   }
 }
 
 function checkForAgedBrie(item) {
-  if(item.name === "Aged Brie") {
-    adjustBackStageItem(item)
-  } else {
-    checkForSellInDate(item)
-  }
+  (item.name === "Aged Brie")? adjustBackStageItem(item) : checkForSellInDate(item);
 }
 
 function adjustBackStageItem(item) {
