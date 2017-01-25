@@ -16,4 +16,15 @@ describe("Gilded Rose", function() {
     })
   })
 
+  describe("Sell by date is passed", function() {
+    beforeEach(function() {
+      items = [new Item("item", 0, 10)]
+    })
+
+    it("quality degrades twice as fast", function() {
+      update_quality(items)
+      expect(items[0].quality).toEqual(8)
+    })
+  })
+
 });
