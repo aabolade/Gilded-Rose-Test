@@ -9,10 +9,6 @@ const depreciationConstant = -1;
 const afterSellInDateDepreciationConstant = -2;
 const backstageConstant = 1;
 
-
-
-var items = []
-
 function update_quality(items) {
 
   items.forEach(function(element) {
@@ -26,7 +22,10 @@ function depreciateQuality(item, factor) {
 }
 
 function checkForSellInDate(element) {
-  (element.sell_in <= 0) ? depreciateQuality(element, afterSellInDateDepreciationConstant ) : depreciateQuality(element, depreciationConstant);
+  var constant
+  (element.sell_in <= 0) ? constant = afterSellInDateDepreciationConstant : constant = depreciationConstant;
+  (element.name == "Conjured")? constant*=2: constant*=1
+  depreciateQuality(element, constant)
 }
 
 function checkIfQualityIsWithBounds(item) {
@@ -38,6 +37,7 @@ function checkIfQualityIsWithBounds(item) {
 function checkForAgedBrie(item) {
   (item.name === "Aged Brie")? adjustBackStageItem(item) : checkForSellInDate(item);
 }
+
 
 function adjustBackStageItem(item) {
   depreciateQuality(item, backstageConstant)

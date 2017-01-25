@@ -61,4 +61,15 @@ describe("Gilded Rose", function() {
     })
   })
 
+  describe("Conjured Items", function() {
+    beforeEach(function() {
+      items = [new Item("Conjured", 10, 10)]
+    })
+
+    it("decays twice as fast as normal items", function() {
+      update_quality(items)
+      expect(items[0].quality).toEqual(8)
+    })
+  })
+
 });
