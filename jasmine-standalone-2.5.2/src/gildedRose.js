@@ -12,10 +12,9 @@ const afterSellInDateDepreciationConstant = 2;
 var items = []
 
 function update_quality(items) {
-
   items.forEach(function(element) {
     element.sell_in -= 1;
-    checkForSellInDate(element)
+    checkIfQualityIsZero(element);
   })
 }
 
@@ -28,5 +27,11 @@ function checkForSellInDate(element) {
     depreciateQuality(element, afterSellInDateDepreciationConstant )
   } else {
     depreciateQuality(element, depreciationConstant);
+  }
+}
+
+function checkIfQualityIsZero(element) {
+  if(element.quality !== 0) {
+    checkForSellInDate(element)
   }
 }
